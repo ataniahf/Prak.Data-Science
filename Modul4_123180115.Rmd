@@ -1,0 +1,92 @@
+---
+title: "Latihan Modul 4"
+author: "Afiq"
+date: "11/6/2020"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Import Library dan Dataset
+```{r}
+library(dslabs)
+data("murders")
+```
+
+#1. Assign pop value
+Menyimpan data populasi pada variable pop
+```{r}
+pop <- murders$population
+pop
+```
+
+Sorting data populasi
+```{r}
+popSort <- sort(pop)
+```
+
+Nilai populasi terkecil
+```{r}
+popSort[1]
+```
+
+#2. Indeks populasi terkecil
+Menampilkan indeks tiap-tiap data populasi dan terurut dari yang terkecil
+```{r}
+pop
+```
+
+```{r}
+order(pop)
+```
+
+#4. Nama Negara dengan Populasi terkecil
+```{r}
+minMurder <- which.min(murders$population)
+```
+
+#5. Peringkat Populasi Negara
+```{r}
+murders$state[minMurder]
+```
+
+#6. Peringkat Populasi Negara (terurut terkecil)
+Mengulangi langkah sebelumnya untuk mengurutkan populasi negara dari yang terkecil
+```{r}
+ranks <- rank(murders$population)
+my_df <- data.frame(Nama = murders$state, Ranking = ranks)
+head(my_df)
+```
+
+#7. Visualisasi menggunakan Plot
+Analisis total pembunuhan dengan jumlah populasi.
+```{r}
+ranks <- rank(murders$population)
+my_df <- data.frame(Nama = murders$state, Ranking = ranks)
+ind <- order(my_df$Ranking)
+my_df$Nama[ind]
+```
+
+#8. Histogram Populasi Negara Bagian
+```{r}
+population_in_millions <- murders$population/10^6
+total_gun_murders <- murders$total
+plot(log10(population_in_millions), total_gun_murders)
+```
+
+#9. Boxplot Populasi Negara Bagian/ wilayah
+```{r}
+populasi <- with(murders, murders$population/10^6)
+hist(populasi, main = "Populasi Negara Bagian")
+```
+
+```{r}
+boxplot(population~region, data = murders)
+```
+
+
+
+
